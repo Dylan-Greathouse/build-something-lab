@@ -1,7 +1,15 @@
+import { jest } from '@jest/globals';
 import pool from '../lib/utils/pool.js';
 import setup from '../data/setup.js';
 import request from 'supertest';
 import app from '../lib/app.js';
+import twilio from '../node_modules/twilio/index.js';
+
+jest.doMock('twilio', () => () => ({
+  messages: {
+    create: jest.fn()
+  }
+}));
 
 describe('demo routes', () => {
   beforeEach(() => {
